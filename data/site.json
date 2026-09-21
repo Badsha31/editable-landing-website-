@@ -1,12 +1,282 @@
 {
-  "settings":{"brand":"NEXORA FASHION","tagline":"Modern fashion, refined for everyday confidence.","email":"hello@nexoraweb.com","phone":"","whatsapp":""},
-  "hero":{"eyebrow":"NEXORA FASHION · NEW SEASON","title":"Wear the moment. Own your style.","description":"A premium fashion destination for elevated everyday pieces, curated drops and effortless looks.","image":"https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1800&q=85"},
-  "collections":[
-    {"name":"New Arrivals","description":"Fresh silhouettes and statement pieces for the new season.","image":"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=85"},
-    {"name":"Women","description":"Refined essentials, occasion looks and modern tailoring.","image":"https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1000&q=85"},
-    {"name":"Men","description":"Clean layers, smart casual staples and modern classics.","image":"https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=1000&q=85"}
+  "settings": {
+    "brand": "NEXORA FASHION",
+    "tagline": "Premium fashion, modern attitude.",
+    "aboutTitle": "The house of modern style.",
+    "aboutText": "We curate refined everyday fashion for people who dress with intention — clean silhouettes, premium textures and confident details.",
+    "email": "hello@nexorafashion.com",
+    "whatsapp": "+8801700000000",
+    "phone": "+8801700000000",
+    "announcement": "NEW SEASON · PREMIUM FASHION · FREE DELIVERY ACROSS BANGLADESH"
+  },
+  "hero": {
+    "eyebrow": "NEXORA FASHION / NEW SEASON 2026",
+    "title": "Dress distinctly.",
+    "description": "Curated fashion for people who want timeless silhouettes with a modern attitude.",
+    "image": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=2200&q=95"
+  },
+  "benefits": [
+    "Premium curated collection",
+    "Free delivery across Bangladesh",
+    "24 hour customer service",
+    "Authentic products"
   ],
-  "reviews":[{"id":"seed-1","name":"Verified customer","rating":5,"text":"Beautiful quality and a very smooth shopping experience.","status":"approved","featured":true,"createdAt":"2026-01-01T00:00:00.000Z"}],
-  "chatbot":{"name":"Nexora Style Assistant","welcome":"Hi! I’m your style assistant. Ask me about collections, sizing, delivery, returns or choosing a look.","knowledge":"We offer New Arrivals, Women and Men collections. Customers can contact us through the inquiry form or WhatsApp for availability, sizing and order assistance. Replace this knowledge from the admin panel with your real store policies. Do not invent stock, prices, delivery times or product details.","quickReplies":["New arrivals","Sizing help","Delivery info","Return policy"]},
-  "leads":[]
+  "socials": {
+    "whatsapp": "https://wa.me/8801700000000",
+    "facebook": "https://facebook.com/",
+    "instagram": "https://instagram.com/",
+    "tiktok": "https://tiktok.com/"
+  },
+  "categories": [
+    "All",
+    "Women",
+    "Men",
+    "Unisex",
+    "New Arrivals"
+  ],
+  "collections": [
+    {
+      "name": "Women",
+      "image": "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1200&q=90"
+    },
+    {
+      "name": "Men",
+      "image": "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=1200&q=90"
+    },
+    {
+      "name": "New Arrivals",
+      "image": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=90"
+    }
+  ],
+  "products": [
+    {
+      "id": "NF-001",
+      "name": "Noir Tailored Blazer",
+      "category": "Women",
+      "price": 2890,
+      "oldPrice": 3490,
+      "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=90",
+      "description": "Sharp tailoring with a clean premium finish.",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "badge": "NEW"
+    },
+    {
+      "id": "NF-002",
+      "name": "Satin Evening Dress",
+      "category": "Women",
+      "price": 3290,
+      "oldPrice": 3990,
+      "image": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=90",
+      "description": "Elegant satin silhouette designed for evening moments.",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "badge": "BEST SELLER"
+    },
+    {
+      "id": "NF-003",
+      "name": "Classic Linen Shirt",
+      "category": "Men",
+      "price": 1790,
+      "oldPrice": 2190,
+      "image": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=90",
+      "description": "Breathable linen with an effortless tailored cut.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "badge": "NEW"
+    },
+    {
+      "id": "NF-004",
+      "name": "Relaxed Pleated Trousers",
+      "category": "Men",
+      "price": 1990,
+      "oldPrice": 2490,
+      "image": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=900&q=90",
+      "description": "Modern pleated trousers for smart everyday styling.",
+      "sizes": [
+        "30",
+        "32",
+        "34",
+        "36",
+        "38"
+      ]
+    },
+    {
+      "id": "NF-005",
+      "name": "Soft Knit Co-Ord",
+      "category": "Women",
+      "price": 2490,
+      "oldPrice": 2990,
+      "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=90",
+      "description": "Soft textured two-piece set with a refined shape.",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "badge": "TRENDING"
+    },
+    {
+      "id": "NF-006",
+      "name": "Essential Overshirt",
+      "category": "Unisex",
+      "price": 2190,
+      "oldPrice": 2590,
+      "image": "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=90",
+      "description": "A versatile layer that works across seasons.",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "id": "NF-007",
+      "name": "Minimal Black Abaya",
+      "category": "Women",
+      "price": 2690,
+      "oldPrice": 3190,
+      "image": "https://images.unsplash.com/photo-1585488432219-1d7f2a6f4d72?auto=format&fit=crop&w=900&q=90",
+      "description": "Flowing minimal silhouette with understated elegance.",
+      "sizes": [
+        "52",
+        "54",
+        "56",
+        "58"
+      ],
+      "badge": "NEW"
+    },
+    {
+      "id": "NF-008",
+      "name": "Signature Polo",
+      "category": "Men",
+      "price": 1490,
+      "oldPrice": 1790,
+      "image": "https://images.unsplash.com/photo-1625910513413-5fc45c5c0c1a?auto=format&fit=crop&w=900&q=90",
+      "description": "Premium everyday polo with a structured collar.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ]
+    },
+    {
+      "id": "NF-009",
+      "name": "Silk Touch Scarf",
+      "category": "Women",
+      "price": 790,
+      "oldPrice": 990,
+      "image": "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=900&q=90",
+      "description": "Lightweight accessory to finish a polished look.",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "id": "NF-010",
+      "name": "Urban Cargo Jacket",
+      "category": "Men",
+      "price": 2990,
+      "oldPrice": 3590,
+      "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=900&q=90",
+      "description": "Utility-inspired jacket with a premium streetwear finish.",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "badge": "LIMITED"
+    },
+    {
+      "id": "NF-011",
+      "name": "Everyday Wide Leg",
+      "category": "Unisex",
+      "price": 1890,
+      "oldPrice": 2290,
+      "image": "https://images.unsplash.com/photo-1506629905607-d9b1c2a7d2c8?auto=format&fit=crop&w=900&q=90",
+      "description": "Relaxed wide-leg trousers made for daily movement.",
+      "sizes": [
+        "30",
+        "32",
+        "34",
+        "36"
+      ]
+    },
+    {
+      "id": "NF-012",
+      "name": "Statement Leather Bag",
+      "category": "Women",
+      "price": 2390,
+      "oldPrice": 2890,
+      "image": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=90",
+      "description": "Structured statement bag with a timeless profile.",
+      "sizes": [
+        "One Size"
+      ],
+      "badge": "BEST SELLER"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "r1",
+      "name": "Verified customer",
+      "rating": 5,
+      "text": "Quality and presentation were excellent. The whole experience felt premium.",
+      "status": "approved",
+      "featured": true,
+      "createdAt": "2026-08-10T10:00:00Z"
+    },
+    {
+      "id": "r2",
+      "name": "Sadia",
+      "rating": 5,
+      "text": "Loved the fitting and packaging. Delivery was smooth too.",
+      "status": "approved",
+      "featured": true,
+      "createdAt": "2026-08-18T10:00:00Z"
+    },
+    {
+      "id": "r3",
+      "name": "Rahim",
+      "rating": 4,
+      "text": "The shirt quality is really good and exactly like the photos.",
+      "status": "approved",
+      "featured": false,
+      "createdAt": "2026-08-22T10:00:00Z"
+    }
+  ],
+  "agents": [
+    {
+      "id": "a1",
+      "name": "Fashion Support",
+      "phone": "+8801700000000",
+      "whatsapp": "https://wa.me/8801700000000",
+      "active": true
+    }
+  ],
+  "orders": [],
+  "leads": [],
+  "chatbot": {
+    "name": "Nexora Style Assistant",
+    "welcome": "Hi! 👋 আমি Nexora Fashion-এর Style Assistant। আপনি Bangla, Banglish অথবা English—যেভাবে চান সেভাবেই কথা বলতে পারেন। Product খুঁজতে, size জানতে বা order করতে আমাকে বলুন।",
+    "knowledge": "Store: NEXORA FASHION. Free delivery across Bangladesh. 24 hour customer service. Customers can ask about products, sizes, categories, delivery, returns and ordering. Never invent unavailable stock, discounts, delivery dates or policies; use the admin-saved information.",
+    "quickReplies": [
+      "New arrivals দেখাও",
+      "Size help চাই",
+      "Delivery info",
+      "আমি order করতে চাই"
+    ]
+  }
 }
