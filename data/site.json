@@ -1,18 +1,18 @@
 {
   "settings": {
-    "brand": "NEXORA FASHION",
-    "tagline": "Premium fashion, modern attitude.",
-    "aboutTitle": "The house of modern style.",
-    "aboutText": "We curate refined everyday fashion for people who dress with intention — clean silhouettes, premium textures and confident details.",
+    "brand": "NEXORA WEB",
+    "tagline": "Premium editable digital experience.",
+    "aboutTitle": "Built for a premium digital presence.",
+    "aboutText": "NEXORA WEB creates polished, editable and conversion-focused digital experiences with a clean premium interface, responsive layout and real content management.",
     "email": "hello@nexorafashion.com",
     "whatsapp": "+8801700000000",
     "phone": "+8801700000000",
-    "announcement": "NEW SEASON · PREMIUM FASHION · FREE DELIVERY ACROSS BANGLADESH"
+    "announcement": "PREMIUM DIGITAL EXPERIENCE · BUILT BY NEXORA WEB"
   },
   "hero": {
-    "eyebrow": "NEXORA FASHION / NEW SEASON 2026",
-    "title": "Dress distinctly.",
-    "description": "Curated fashion for people who want timeless silhouettes with a modern attitude.",
+    "eyebrow": "NEXORA WEB",
+    "title": "Premium digital presence.",
+    "description": "A clean, editable and conversion-focused experience built to feel premium on every screen.",
     "image": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=2200&q=95"
   },
   "benefits": [
@@ -269,8 +269,8 @@
   "orders": [],
   "leads": [],
   "chatbot": {
-    "name": "Nexora Style Assistant",
-    "welcome": "Hi! 👋 আমি Nexora Fashion-এর Style Assistant। আপনি Bangla, Banglish অথবা English—যেভাবে চান সেভাবেই কথা বলতে পারেন। Product খুঁজতে, size জানতে বা order করতে আমাকে বলুন।",
+    "name": "Nexora WEB Assistant",
+    "welcome": "Hi! 👋 আমি Nexora WEB Assistant। আপনি Bangla, Banglish অথবা English—যেভাবে চান সেভাবেই কথা বলতে পারেন। Product, size, delivery বা order help চাইলে বলুন।",
     "knowledge": "Store: NEXORA FASHION. Free delivery across Bangladesh. 24 hour customer service. Customers can ask about products, sizes, categories, delivery, returns and ordering. Never invent unavailable stock, discounts, delivery dates or policies; use the admin-saved information.",
     "quickReplies": [
       "New arrivals দেখাও",
