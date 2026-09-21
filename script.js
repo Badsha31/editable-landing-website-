@@ -1,0 +1,1 @@
+function sendLead(e){e.preventDefault();const f=e.target,s=document.getElementById("form-status");const data=Object.fromEntries(new FormData(f));localStorage.setItem("nexora_last_lead",JSON.stringify(data));s.textContent="Thanks — your inquiry is ready to connect to your backend.";s.style.color="#c9a45b";f.reset()}
