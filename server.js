@@ -4,7 +4,8 @@ const path=require("path");
 const crypto=require("crypto");
 const PORT=Number(process.env.PORT)||10000,HOST="0.0.0.0",ROOT=__dirname;
 const DATA_DIR=path.join(ROOT,"data"),DATA_FILE=path.join(DATA_DIR,"site.json");
-const ADMIN_PASSWORD=process.env.ADMIN_PASSWORD||"change-this-password",sessions=new Map();
+const ADMIN_PASSWORD=process.env.ADMIN_PASSWORD||"",ADMIN_EMAIL=process.env.ADMIN_EMAIL||"admin@nexoraweb.local",sessions=new Map();
+if(!ADMIN_PASSWORD)console.warn("WARNING: Set ADMIN_PASSWORD in production.");
 const MIME={".html":"text/html; charset=utf-8",".css":"text/css; charset=utf-8",".js":"application/javascript; charset=utf-8",".json":"application/json; charset=utf-8",".svg":"image/svg+xml",".png":"image/png",".jpg":"image/jpeg",".jpeg":"image/jpeg",".webp":"image/webp"};
 function ensureData(){fs.mkdirSync(DATA_DIR,{recursive:true});if(!fs.existsSync(DATA_FILE))fs.writeFileSync(DATA_FILE,JSON.stringify({settings:{brand:"Nexora WEB",tagline:"Premium digital experiences for ambitious brands.",email:"hello@nexoraweb.com",phone:"",whatsapp:""},hero:{eyebrow:"NEXORA WEB · PREMIUM DIGITAL STUDIO",title:"We build digital experiences that move businesses forward.",description:"High-performance websites, e-commerce platforms and custom web solutions designed for modern brands."},services:[],leads:[]},null,2))}
 function readData(){ensureData();return JSON.parse(fs.readFileSync(DATA_FILE,"utf8"))}
