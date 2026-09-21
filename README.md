@@ -1,13 +1,9 @@
-# Nexora WEB — Premium Landing Website
+# NEXORA FASHION — production fashion storefront
 
-A responsive premium landing website for Nexora WEB.
+Node-powered editable fashion store with products, cart, orders, reviews, agent leads, bilingual/Banglish store assistant and admin CMS.
 
-## Run
-Open `index.html` directly or serve the folder with any static web server.
-
-## Structure
-- `index.html` — page structure/content
-- `style.css` — responsive premium visual system
-- `script.js` — lightweight form interaction
-
-The landing page is intentionally dependency-free so it can deploy easily to Cloudflare Pages, Netlify, Vercel, GitHub Pages, or any static host.
+## Render
+Build: npm install
+Start: npm start
+Required env: ADMIN_PASSWORD
+Admin: /admin
