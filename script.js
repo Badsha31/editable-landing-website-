@@ -41,8 +41,8 @@ function startReviewAutoScroll(){const track=$("reviewTrack");if(!track||track.c
 window.addEventListener("resize",measureReviewLoop);
 load();
 // ===== Visual CMS renderer =====
-function applyCMS(){const d=site||{};const t=d.theme||{};for(const [k,v] of Object.entries(t)){if(v!=null)document.documentElement.style.setProperty("--"+k,v)}
-const seo=d.seo||{};if(seo.title)document.title=seo.title;if($("metaDescription")&&seo.description)$("metaDescription").content=seo.description;if($("ogTitle"))$("ogTitle").content=seo.title||d.settings?.brand||"";if($("ogDescription"))$("ogDescription").content=seo.description||"";if($("ogImage"))$("ogImage").content=seo.ogImage||d.hero?.image||"";
+function applyCMS(){const d=site||{};const t=d.theme||{};for(const [k,v] of Object.entries(t)){if(v!=null){document.documentElement.style.setProperty("--"+k,v);if(k==="accent")document.documentElement.style.setProperty("--gold",v)}}
+const seo=d.seo||{};if(d.settings?.favicon){let fi=document.querySelector("link[rel=\"icon\"]");if(!fi){fi=document.createElement("link");fi.rel="icon";document.head.appendChild(fi)}fi.href=d.settings.favicon}if(seo.title)document.title=seo.title;if($("metaDescription")&&seo.description)$("metaDescription").content=seo.description;if($("ogTitle"))$("ogTitle").content=seo.title||d.settings?.brand||"";if($("ogDescription"))$("ogDescription").content=seo.description||"";if($("ogImage"))$("ogImage").content=seo.ogImage||d.hero?.image||"";
 const nav=$("nav");if(nav){nav.innerHTML="";(d.navigation||[]).filter(x=>x.visible!==false).forEach(x=>{const a=document.createElement("a");a.href=x.href||"#";a.textContent=x.label||"Link";nav.appendChild(a)})}
 const footerAbout=$("footerAbout");if(footerAbout)footerAbout.textContent=d.footer?.about||d.settings?.aboutText||"";
 const made=$("footerMade");if(made)made.innerHTML="Made by <strong>"+escapeHtml(d.footer?.madeBy||"Nexora WEB")+"</strong> · "+escapeHtml(d.footer?.copyright||"© 2026");
