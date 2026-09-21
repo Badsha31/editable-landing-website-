@@ -1,27 +1,29 @@
-const http=require("http");
-const fs=require("fs");
-const path=require("path");
-const crypto=require("crypto");
-const PORT=Number(process.env.PORT)||10000,HOST="0.0.0.0",ROOT=__dirname;
-const DATA_DIR=path.join(ROOT,"data"),DATA_FILE=path.join(DATA_DIR,"site.json");
-const ADMIN_PASSWORD=process.env.ADMIN_PASSWORD||"",ADMIN_EMAIL=process.env.ADMIN_EMAIL||"admin@nexoraweb.local",sessions=new Map();
-if(!ADMIN_PASSWORD)console.warn("WARNING: Set ADMIN_PASSWORD in production.");
+const http=require("http"),fs=require("fs"),path=require("path"),crypto=require("crypto");
+const PORT=Number(process.env.PORT)||10000,HOST="0.0.0.0",ROOT=__dirname,DATA_FILE=path.join(ROOT,"data","site.json"),ADMIN_PASSWORD=process.env.ADMIN_PASSWORD||"",sessions=new Map();
 const MIME={".html":"text/html; charset=utf-8",".css":"text/css; charset=utf-8",".js":"application/javascript; charset=utf-8",".json":"application/json; charset=utf-8",".svg":"image/svg+xml",".png":"image/png",".jpg":"image/jpeg",".jpeg":"image/jpeg",".webp":"image/webp"};
-function ensureData(){fs.mkdirSync(DATA_DIR,{recursive:true});if(!fs.existsSync(DATA_FILE))fs.writeFileSync(DATA_FILE,JSON.stringify({settings:{brand:"Nexora WEB",tagline:"Premium digital experiences for ambitious brands.",email:"hello@nexoraweb.com",phone:"",whatsapp:""},hero:{eyebrow:"NEXORA WEB · PREMIUM DIGITAL STUDIO",title:"We build digital experiences that move businesses forward.",description:"High-performance websites, e-commerce platforms and custom web solutions designed for modern brands."},services:[],leads:[]},null,2))}
-function readData(){ensureData();return JSON.parse(fs.readFileSync(DATA_FILE,"utf8"))}
-function writeData(d){fs.writeFileSync(DATA_FILE,JSON.stringify(d,null,2))}
-function json(res,status,d){res.writeHead(status,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(JSON.stringify(d))}
-function isAdmin(req){const t=(req.headers.authorization||"").replace(/^Bearer\s+/i,"");return !!t&&sessions.has(t)}
-function parseBody(req){return new Promise((resolve,reject)=>{let raw="";req.on("data",c=>{raw+=c;if(raw.length>1000000)req.destroy()});req.on("end",()=>{try{resolve(raw?JSON.parse(raw):{})}catch(e){reject(e)}});req.on("error",reject)})}
-async function api(req,res,url){
-if(req.method==="POST"&&url==="/api/login"){const b=await parseBody(req);if(String(b.password||"")!==ADMIN_PASSWORD)return json(res,401,{error:"Invalid password"});const t=crypto.randomBytes(32).toString("hex");sessions.set(t,Date.now());return json(res,200,{token:t})}
-if(req.method==="GET"&&url==="/api/site")return json(res,200,readData());
-if(req.method==="POST"&&url==="/api/leads"){const b=await parseBody(req);if(!b.name||!b.email||!b.message)return json(res,400,{error:"Name, email and message are required"});const d=readData();d.leads.push({id:crypto.randomUUID(),name:String(b.name).slice(0,120),email:String(b.email).slice(0,180),message:String(b.message).slice(0,4000),status:"new",createdAt:new Date().toISOString()});writeData(d);return json(res,201,{ok:true})}
-if(req.method==="PUT"&&url==="/api/site"){if(!isAdmin(req))return json(res,401,{error:"Unauthorized"});const b=await parseBody(req),d=readData();const next={...d,...b,settings:{...d.settings,...(b.settings||{})},hero:{...d.hero,...(b.hero||{})},services:Array.isArray(b.services)?b.services:d.services,leads:d.leads};writeData(next);return json(res,200,next)}
-if(req.method==="GET"&&url==="/api/leads"){if(!isAdmin(req))return json(res,401,{error:"Unauthorized"});return json(res,200,readData().leads)}
-if(req.method==="PATCH"&&url.startsWith("/api/leads/")){if(!isAdmin(req))return json(res,401,{error:"Unauthorized"});const b=await parseBody(req),d=readData(),id=url.split("/").pop(),lead=d.leads.find(x=>x.id===id);if(!lead)return json(res,404,{error:"Lead not found"});if(b.status)lead.status=String(b.status);writeData(d);return json(res,200,lead)}
-if(req.method==="POST"&&url==="/api/logout"){const t=(req.headers.authorization||"").replace(/^Bearer\s+/i,"");sessions.delete(t);return json(res,200,{ok:true})}
-return json(res,404,{error:"Not found"})}
-function safeFile(reqUrl){const rel=decodeURIComponent(reqUrl.split("?")[0]).replace(/^\/+/,"")||"index.html";const f=path.resolve(ROOT,rel);return f.startsWith(ROOT+path.sep)?f:null}
-const server=http.createServer(async(req,res)=>{try{const u=new URL(req.url,"http://localhost").pathname;if(u.startsWith("/api/"))return await api(req,res,u);const f=safeFile(req.url);if(!f)return json(res,403,{error:"Forbidden"});fs.stat(f,(err,st)=>{if(err||!st.isFile())return json(res,404,{error:"Not found"});res.writeHead(200,{"Content-Type":MIME[path.extname(f).toLowerCase()]||"application/octet-stream","X-Content-Type-Options":"nosniff"});fs.createReadStream(f).pipe(res)})}catch(e){console.error(e);json(res,500,{error:"Server error"})}});
-ensureData();server.listen(PORT,HOST,()=>console.log("Nexora WEB running on "+PORT));
+if(!ADMIN_PASSWORD)console.warn("WARNING: Set ADMIN_PASSWORD in production.");
+function data(){return JSON.parse(fs.readFileSync(DATA_FILE,"utf8"))} function save(d){fs.writeFileSync(DATA_FILE,JSON.stringify(d,null,2))}
+function json(res,s,d){res.writeHead(s,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(JSON.stringify(d))}
+function admin(req){const t=(req.headers.authorization||"").replace(/^Bearer\s+/i,"");return !!t&&sessions.has(t)}
+function body(req){return new Promise((ok,no)=>{let x="";req.on("data",c=>{x+=c;if(x.length>1000000)req.destroy()});req.on("end",()=>{try{ok(x?JSON.parse(x):{})}catch(e){no(e)}});req.on("error",no)})}
+const text=(v,n)=>String(v??"").trim().slice(0,n);
+async function api(req,res,u){
+ if(req.method==="POST"&&u==="/api/login"){const b=await body(req);if(text(b.password,200)!==ADMIN_PASSWORD)return json(res,401,{error:"Invalid password"});const t=crypto.randomBytes(32).toString("hex");sessions.set(t,Date.now());return json(res,200,{token:t})}
+ if(req.method==="GET"&&u==="/api/site")return json(res,200,data());
+ if(req.method==="POST"&&u==="/api/leads"){const b=await body(req);if(!b.name||!b.email||!b.message)return json(res,400,{error:"Name, email and message are required"});const d=data();d.leads=d.leads||[];d.leads.push({id:crypto.randomUUID(),name:text(b.name,120),email:text(b.email,180),message:text(b.message,4000),status:"new",createdAt:new Date().toISOString()});save(d);return json(res,201,{ok:true})}
+ if(req.method==="POST"&&u==="/api/reviews"){const b=await body(req),rating=Math.max(1,Math.min(5,Number(b.rating)||5));if(!b.name||!b.text)return json(res,400,{error:"Name and review are required"});const d=data();d.reviews=d.reviews||[];d.reviews.push({id:crypto.randomUUID(),name:text(b.name,100),rating,text:text(b.text,1000),status:"pending",featured:false,createdAt:new Date().toISOString()});save(d);return json(res,201,{message:"Review submitted for approval."})}
+ if(req.method==="GET"&&u==="/api/reviews")return json(res,200,(data().reviews||[]).filter(x=>x.status==="approved"));
+ if(req.method==="POST"&&u==="/api/chat"){const b=await body(req),d=data(),q=text(b.message,600).toLowerCase(),k=d.chatbot||{},knowledge=text(k.knowledge,8000);let reply=k.welcome||"Hi! How can I help?";
+ if(/hello|hi|hey|assalam/.test(q))reply=k.welcome||reply; else if(/new|arrival|collection|women|men/.test(q))reply="Our current collections are New Arrivals, Women and Men. Tell me which one you want to explore."; else if(/size|sizing|fit/.test(q))reply="For sizing, tell me the item and your usual size. I’ll guide you using the store information."; else if(/price|cost|stock|available|order/.test(q))reply="I won’t invent live stock or pricing. Share the item name or contact the store for current availability."; else reply=knowledge;
+ return json(res,200,{reply})}
+ if(req.method==="PUT"&&u==="/api/site"){if(!admin(req))return json(res,401,{error:"Unauthorized"});const b=await body(req),d=data(),n={...d,...b,settings:{...d.settings,...(b.settings||{})},hero:{...d.hero,...(b.hero||{})},collections:Array.isArray(b.collections)?b.collections:d.collections,reviews:Array.isArray(b.reviews)?b.reviews:d.reviews,chatbot:{...d.chatbot,...(b.chatbot||{})},leads:d.leads};save(n);return json(res,200,n)}
+ if(req.method==="GET"&&u==="/api/leads"){if(!admin(req))return json(res,401,{error:"Unauthorized"});return json(res,200,data().leads||[])}
+ if(req.method==="GET"&&u==="/api/admin/reviews"){if(!admin(req))return json(res,401,{error:"Unauthorized"});return json(res,200,data().reviews||[])}
+ if(req.method==="PATCH"&&u.startsWith("/api/reviews/")){if(!admin(req))return json(res,401,{error:"Unauthorized"});const b=await body(req),d=data(),r=(d.reviews||[]).find(x=>x.id===u.split("/").pop());if(!r)return json(res,404,{error:"Review not found"});if(b.status)r.status=text(b.status,20);if(typeof b.featured==="boolean")r.featured=b.featured;save(d);return json(res,200,r)}
+ if(req.method==="PATCH"&&u.startsWith("/api/leads/")){if(!admin(req))return json(res,401,{error:"Unauthorized"});const b=await body(req),d=data(),l=(d.leads||[]).find(x=>x.id===u.split("/").pop());if(!l)return json(res,404,{error:"Lead not found"});if(b.status)l.status=text(b.status,30);save(d);return json(res,200,l)}
+ if(req.method==="POST"&&u==="/api/logout"){const t=(req.headers.authorization||"").replace(/^Bearer\s+/i,"");sessions.delete(t);return json(res,200,{ok:true})}
+ return json(res,404,{error:"Not found"})
+}
+function file(u){const rel=decodeURIComponent(u.split("?")[0]).replace(/^\/+/,"")||"index.html",f=path.resolve(ROOT,rel);return f.startsWith(ROOT+path.sep)?f:null}
+const server=http.createServer(async(req,res)=>{try{const u=new URL(req.url,"http://localhost").pathname;if(u.startsWith("/api/"))return await api(req,res,u);const f=file(req.url);if(!f)return json(res,403,{error:"Forbidden"});fs.stat(f,(e,s)=>{if(e||!s.isFile())return json(res,404,{error:"Not found"});res.writeHead(200,{"Content-Type":MIME[path.extname(f).toLowerCase()]||"application/octet-stream","X-Content-Type-Options":"nosniff"});fs.createReadStream(f).pipe(res)})}catch(e){console.error(e);json(res,500,{error:"Server error"})}});
+server.listen(PORT,HOST,()=>console.log("NEXORA FASHION running on "+PORT));
