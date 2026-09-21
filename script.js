@@ -1,4 +1,4 @@
-let site=null,products=[],cart=JSON.parse(localStorage.getItem("nfx_cart")||"[]"),selected=null;
+let site=null,products=[],cart=JSON.parse(localStorage.getItem("nfx_cart")||"[]"),selected=null,chatOrder=null;
 const $=id=>document.getElementById(id),money=n=>"৳"+Number(n).toLocaleString("en-BD");
 async function get(u,o){const r=await fetch(u,o),d=await r.json();if(!r.ok)throw Error(d.error||"Request failed");return d}
 async function load(){site=await get("/api/site");products=site.products||[];renderSite();renderFilters();renderProducts();renderCategories();renderReviews();renderAgents();updateCart();setupEvents();setupChat()}
@@ -22,6 +22,15 @@ $("contactForm").onsubmit=async e=>{e.preventDefault();const f=e.target,s=$("con
 $("agentForm").onsubmit=async e=>{e.preventDefault();const f=e.target,s=$("agentStatus");try{await get("/api/leads",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...Object.fromEntries(new FormData(f)),message:"AGENT REQUEST: "+new FormData(f).get("message")})});s.textContent="Agent request sent.";f.reset()}catch(x){s.textContent=x.message}};
 function msg(t,type){const d=document.createElement("div");d.className="msg "+type;d.textContent=t;$("chatBody").appendChild(d);$("chatBody").scrollTop=$("chatBody").scrollHeight}
 function setupChat(){msg(site.chatbot.welcome,"bot");const q=$("quick");q.innerHTML="";(site.chatbot.quickReplies||[]).forEach(t=>{const b=document.createElement("button");b.textContent=t;b.onclick=()=>ask(t);q.appendChild(b)})}
-async function ask(t){if(!t)return;msg(t,"user");try{const r=await get("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:t})});msg(r.reply,"bot")}catch(e){msg("দুঃখিত, এখন connection সমস্যা হচ্ছে। Please contact an agent.","bot")}}
+async function ask(t){if(!t)return;msg(t,"user");
+ if(chatOrder){await continueChatOrder(t);return}
+ if(/order|অর্ডার|নিতে|নেব|buy|কিনবো|কিনতে/i.test(t)){chatOrder={step:"product"};msg("অবশ্যই ❤️ কোন productটি নিতে চান? Product name লিখুন।","bot");return}
+ try{const r=await get("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:t})});msg(r.reply,"bot")}catch(e){msg("দুঃখিত, এখন connection সমস্যা হচ্ছে। Please contact an agent.","bot")}}
+async function continueChatOrder(t){
+ if(chatOrder.step==="product"){const p=products.find(x=>(x.name+" "+x.id).toLowerCase().includes(t.toLowerCase())||t.toLowerCase().includes(x.name.toLowerCase()));if(!p){msg("এই productটি খুঁজে পাচ্ছি না। Exact product name লিখুন বা website থেকে Order now চাপুন।","bot");return}chatOrder.product=p;chatOrder.step="name";msg(p.name+" selected ❤️ আপনার নামটি দিন।","bot");return}
+ if(chatOrder.step==="name"){chatOrder.name=t;chatOrder.step="phone";msg("ধন্যবাদ। আপনার phone/WhatsApp number দিন।","bot");return}
+ if(chatOrder.step==="phone"){chatOrder.phone=t;chatOrder.step="address";msg("Delivery address দিন।","bot");return}
+ if(chatOrder.step==="address"){chatOrder.address=t;chatOrder.step="payment";msg("Payment method লিখুন: Cash on Delivery / bKash / Nagad / Rocket","bot");return}
+ if(chatOrder.step==="payment"){chatOrder.payment=t;const p=chatOrder.product;try{const r=await get("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:chatOrder.name,phone:chatOrder.phone,address:chatOrder.address,payment:chatOrder.payment,items:[{productId:p.id,size:p.sizes?.[0]||"One Size",quantity:1}],source:"chatbot"})});msg("Order confirmed 🎉 আপনার Order ID: "+r.order.id+"। আমাদের team আপনার সাথে contact করবে।","bot");chatOrder=null}catch(e){msg("Order নেওয়ার সময় সমস্যা হয়েছে। Please try again or contact an agent.","bot");chatOrder=null}}}
 $("chatFab").onclick=()=>$("chat").classList.add("open");$("chatClose").onclick=()=>$("chat").classList.remove("open");$("chatForm").onsubmit=e=>{e.preventDefault();const i=$("chatInput"),t=i.value.trim();i.value="";ask(t)};
 load();
