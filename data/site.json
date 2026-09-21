@@ -278,5 +278,89 @@
       "Delivery info",
       "আমি order করতে চাই"
     ]
+  },
+  "theme": {
+    "bg": "#f7f6f2",
+    "panel": "#ffffff",
+    "ink": "#151515",
+    "muted": "#77736c",
+    "accent": "#b99555",
+    "radius": "14px"
+  },
+  "navigation": [
+    {
+      "label": "Shop",
+      "href": "#shop",
+      "visible": true
+    },
+    {
+      "label": "Categories",
+      "href": "#categories",
+      "visible": true
+    },
+    {
+      "label": "About",
+      "href": "#about",
+      "visible": true
+    },
+    {
+      "label": "Reviews",
+      "href": "#reviews",
+      "visible": true
+    },
+    {
+      "label": "Contact",
+      "href": "#contact",
+      "visible": true
+    }
+  ],
+  "sections": [
+    {
+      "id": "shop",
+      "type": "products",
+      "title": "Find your signature.",
+      "eyebrow": "01 / SHOP",
+      "visible": true
+    },
+    {
+      "id": "categories",
+      "type": "categories",
+      "title": "Explore the edit.",
+      "eyebrow": "02 / CATEGORIES",
+      "visible": true
+    },
+    {
+      "id": "about",
+      "type": "about",
+      "title": "Built for a premium digital presence.",
+      "eyebrow": "03 / ABOUT STORE",
+      "visible": true
+    },
+    {
+      "id": "reviews",
+      "type": "reviews",
+      "title": "What our customers say.",
+      "eyebrow": "04 / REVIEWS",
+      "visible": true
+    },
+    {
+      "id": "contact",
+      "type": "contact",
+      "title": "Need help choosing?",
+      "eyebrow": "05 / CONTACT",
+      "visible": true
+    }
+  ],
+  "seo": {
+    "title": "NEXORA WEB",
+    "description": "Premium editable digital experience.",
+    "ogImage": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=2200&q=95",
+    "canonical": "",
+    "robots": "index,follow"
+  },
+  "footer": {
+    "about": "NEXORA WEB creates polished, editable and conversion-focused digital experiences with a clean premium interface, responsive layout and real content management.",
+    "madeBy": "Nexora WEB",
+    "copyright": "© 2026"
   }
 }
