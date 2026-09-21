@@ -20,3 +20,47 @@
  .card{padding:18px!important}
 }
 @media(min-width:801px){#app{grid-template-columns:250px minmax(0,1fr)}}
+
+/* PREMIUM CMS FINAL LAYOUT */
+#app{grid-template-columns:280px minmax(0,1fr);background:#f6f5f1}
+#adminSidebar{position:sticky;left:0;top:0;height:100svh;width:280px;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;padding:24px 16px;background:#141414;color:#fff;z-index:1100}
+.admin-logo{padding:4px 12px 28px}
+.admin-brand-line{display:flex;align-items:center;gap:10px}
+.admin-brand-line>span{width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:10px;font-weight:800}
+.admin-brand-line strong{font-size:14px;letter-spacing:.12em}
+.admin-brand-line b{color:#d9bf8c}
+.admin-logo small{display:block;margin-top:10px;color:#858585;font-size:8px;letter-spacing:.2em}
+#adminSidebar button{width:100%;display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:11px;font-size:12px;letter-spacing:.01em;transition:background .2s,transform .2s}
+#adminSidebar button span{width:20px;text-align:center;color:#b99555;font-size:14px}
+#adminSidebar button:hover{background:#ffffff0d;color:#fff;transform:translateX(2px)}
+#adminSidebar button.active{background:#fff;color:#141414;box-shadow:0 10px 30px #0004}
+#adminSidebar button.active span{color:#8d6c31}
+#adminSidebar #logout{margin-top:auto;background:#2a2020;color:#e5bcbc}
+main{padding:34px clamp(20px,5vw,72px) 60px}
+main>header{position:sticky;top:0;z-index:700;padding:12px 0 22px;background:#f6f5f1eF;backdrop-filter:blur(16px)}
+header h1{font-size:clamp(36px,4vw,56px)}
+header .save{border-radius:999px;padding:13px 22px;box-shadow:0 12px 30px #17171718}
+.panel{max-width:1180px}
+.card{border-radius:18px;box-shadow:0 16px 50px #1717170a;padding:28px}
+.stats>div{border-radius:18px;min-height:115px;display:flex;flex-direction:column;justify-content:center}
+.builder-item,.product-admin{border-radius:16px;box-shadow:0 10px 30px #17171708}
+.admin-menu-btn{display:none!important}
+.admin-overlay{display:none!important}
+@media(max-width:800px){
+ #app{display:block;min-height:100svh}
+ #adminSidebar{position:fixed!important;inset:0 auto 0 0!important;width:min(330px,86vw)!important;height:100svh!important;transform:translateX(-105%)!important;transition:transform .32s cubic-bezier(.22,.61,.36,1)!important;box-shadow:25px 0 80px #0006!important}
+ #app.menu-open #adminSidebar{transform:translateX(0)!important}
+ #app.menu-open .admin-overlay{display:block!important;position:fixed!important;inset:0!important;background:#0008!important;z-index:1050!important}
+ .admin-menu-btn{display:grid!important;place-items:center!important;position:fixed!important;left:16px!important;top:14px!important;width:48px!important;height:48px!important;border-radius:50%!important;border:1px solid #ffffff30!important;background:#141414!important;color:#fff!important;z-index:1300!important;box-shadow:0 12px 35px #0005!important}
+ main{padding:78px 16px 35px!important}
+ main>header{padding:8px 0 18px!important}
+ main>header>div{padding-left:62px}
+ main>header .save{position:absolute;right:0;top:8px;padding:10px 14px;font-size:10px}
+ .stats{grid-template-columns:1fr 1fr!important}
+ .grid2{grid-template-columns:1fr!important}
+ .product-admin{grid-template-columns:1fr!important}
+ .product-admin img{width:100%;height:260px}
+ .agent-admin{grid-template-columns:1fr!important}
+ .review-form{grid-template-columns:1fr!important}
+ .review-form textarea,.review-form button,.review-form small{grid-column:auto!important}
+}
