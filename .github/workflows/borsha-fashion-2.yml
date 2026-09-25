@@ -1,0 +1,26 @@
+name: Borsha Fashion 2 CI
+
+on:
+  push:
+    branches:
+      - repair/borsha-fashion-2
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: borsha-fashion-2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: borsha-fashion-2/package.json
+      - run: npm install
+      - run: npm run check
+      - run: npm test
